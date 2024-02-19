@@ -1,0 +1,5 @@
+#ALL VPS
+[Servier]
+154.90.63.146                      ansible_host=154.90.63.146             ansible_user=root
+65.20.70.156                      ansible_host=65.20.70.156             ansible_user=root
+202.182.117.96                      ansible_host=202.182.117.96             ansible_user=root

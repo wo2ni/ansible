@@ -1,0 +1,146 @@
+#BASH Config
+
+export PATH="${PATH}:/usr/local/bin:/usr/local/sbin:/bin:/sbin:/usr/bin:/usr/sbin"
+
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+
+HISTCONTROL=ignoreboth
+shopt -s checkwinsize
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+_Get_IpInfo() {
+    _ipinfo_="$(curl -4 -sL myip.ipip.net)"
+    _ip="$(echo $_ipinfo_ |grep -oE '[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+' | awk '{print $1}')"
+    _info="$(echo $_ipinfo_ |grep -oE '来自于：.*$' | sed 's/来自于：//' | sed 's/ /-/g')"
+    _address="${_ip}<->${_info}"
+}
+
+_PS_Echo() {
+    PS1="\[\033[1;31m\]\342\224\214\342\224\200\[\033[1;31m\](\[\033[1;34m\]${OS_ID}\[\033[1;31m\])\[\033[1;32m\]*\[\033[1;31m\][\[\033[1;35m\]$(cat /root/.ip)\[\033[1;31m]\]\[\033[1;32m\]*\[\033[1;31m\](\[\033[1;32m\]\W\[\033[1;31m\])\n\[\033[1;31m\]\342\224\224\342\224\200\342\224\200\[\033[0m\]\[\e[01;31m\]\\$ \[\e[0m\]"
+}
+
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+
+if ! shopt -oq posix; then
+    if [ -f /usr/share/bash-completion/bash_completion ]; then
+        . /usr/share/bash-completion/bash_completion
+    elif [ -f /etc/bash_completion ]; then
+        . /etc/bash_completion
+    fi
+fi
+
+export LS_OPTIONS='--color=auto'
+eval "$(dircolors)"
+alias ls='ls $LS_OPTIONS'
+alias ll='ls $LS_OPTIONS -l'
+alias l='ls $LS_OPTIONS -lA'
+alias sl='ls $LS_OPTIONS -lA'
+alias s='ls -CF'
+alias c='clear'
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+alias lt='tree'
+alias le='less'
+alias cls='clear'
+alias c='clear'
+alias ping6='ping -6'
+alias pw='pwd'
+
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    alias dir='dir --color=auto'
+    alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+    alias ip='ip -c'
+    alias diff='diff --color=auto'
+    alias dd='dd status=progress'
+    alias dog='cat'
+
+    export LESS_TERMCAP_mb=$'\E[1;31m'
+    export LESS_TERMCAP_md=$'\E[1;36m'
+    export LESS_TERMCAP_me=$'\E[0m'
+    export LESS_TERMCAP_so=$'\E[01;33m'
+    export LESS_TERMCAP_se=$'\E[0m'
+    export LESS_TERMCAP_us=$'\E[1;32m'
+    export LESS_TERMCAP_ue=$'\E[0m'
+fi
+
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+alias shutdown='echo !危险行为!'
+alias poweroff='echo !危险行为!'
+alias halt='echo !危险行为!'
+
+if [ -f /etc/os-release ]; then
+    tmp_osid='/etc/os-release'
+        #--Arch;
+    if $(grep 'Arch' ${tmp_osid} >/dev/null 2>&1 ); then
+        OS_ID='Arch' ; readonly OSID
+        #--Debian;
+    elif $(grep 'Debian' ${tmp_osid} >/dev/null 2>&1 ); then
+        OS_ID='Debian'; readonly OSID
+        #--Ubuntu;
+    elif $(grep 'Ubuntu' ${tmp_osid} >/dev/null 2>&1 ); then
+        OS_ID='Ubuntu'; readonly OSID
+        #--Manjaro
+    elif $(grep 'Manjaro' ${tmp_osid} >/dev/null 2>&1 ); then
+        OS_ID='Manjaro'; readonly OSID
+        #--Kali;
+    elif $(grep 'Kali' ${tmp_osid} >/dev/null 2>&1 ); then
+        OS_ID='Kali'; readonly OSID
+        #--Mint;
+    elif $(grep -E 'Mint' ${tmp_osid} >/dev/null 2>&1); then
+        OS_ID='Mint'; readonly OSID
+        #--Fedora;
+    elif $(grep -E 'Fedora' ${tmp_osid} >/dev/null 2>&1); then
+        OS_ID='Fedora'; readonly OSID
+        #--Redhat;
+    elif $(grep 'Redhat' ${tmp_osid} >/dev/null 2>&1 ); then
+        OS_ID='Redhat'; readonly OSID
+        #--CenOS7;
+    elif $(grep -E 'CentOS' ${tmp_osid} >/dev/null 2>&1); then
+        OS_ID='CentOS'; readonly OSID
+    else
+        OS_ID='UNKONW'; readonly OSID
+    fi
+fi
+
+if ! [ -f /root/.addr ]; then
+    _Get_IpInfo
+    echo ${_address} >/root/.ip
+    _PS_Echo
+elif ! [ -f /root/.addr ]; then
+    _Get_IpInfo
+    echo ${_info} >/root/.addr
+    _PS_Echo
+else
+    _PS_Echo
+fi
+
+case "$TERM" in
+    xterm-color|*-256color) color_prompt=yes;;
+esac
+
+if [ "${color_prompt}" = yes ]; then
+    _PS_Echo
+else
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+fi
+
+if [[ ${OS_ID} == 'Arch' ]]; then
+    neofetch
+fi

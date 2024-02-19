@@ -1,0 +1,89 @@
+#ALL VPS 
+[Servier]
+#新加坡.
+161.117.189.210        ansible_host=161.117.189.210   ansible_user=root
+47.241.222.218         ansible_host=47.241.222.218    ansible_user=root
+47.241.66.249          ansible_host=47.241.66.249     ansible_user=root
+47.241.61.21           ansible_host=47.241.61.21      ansible_user=root
+47.241.238.217         ansible_host=47.241.238.217    ansible_user=root
+47.241.79.77           ansible_host=47.241.79.77      ansible_user=root
+47.241.227.23          ansible_host=47.241.227.23     ansible_user=root
+47.241.18.63           ansible_host=47.241.18.63      ansible_user=root
+47.241.76.161          ansible_host=47.241.76.161     ansible_user=root
+47.241.89.191          ansible_host=47.241.89.191     ansible_user=root
+# 中译文娱-独享节点.
+#149.28.80.227-Vultr-美国      ansible_host=149.28.80.227    ansible_user=root
+
+
+#王八.
+#https://cloudnium.net/
+#us-1.ilovegoodlife.xyz      ansible_host=us-1.ilovegoodlife.xyz     ansible_user=root
+#us-2.ilovegoodlife.xyz      ansible_host=us-2.ilovegoodlife.xyz     ansible_user=root
+#us-3.ilovegoodlife.xyz      ansible_host=us-3.ilovegoodlife.xyz     ansible_user=root
+#us-4.ilovegoodlife.xyz      ansible_host=us-4.ilovegoodlife.xyz     ansible_user=root
+#us-5.ilovegoodlife.xyz      ansible_host=us-5.ilovegoodlife.xyz     ansible_user=root
+#us-6.ilovegoodlife.xyz      ansible_host=us-6.ilovegoodlife.xyz     ansible_user=root
+#us-7.ilovegoodlife.xyz      ansible_host=us-7.ilovegoodlife.xyz     ansible_user=root
+#us-8.ilovegoodlife.xyz      ansible_host=us-8.ilovegoodlife.xyz     ansible_user=root
+#us-9.ilovegoodlife.xyz      ansible_host=us-9.ilovegoodlife.xyz     ansible_user=root
+#us-10.ilovegoodlife.xyz      ansible_host=us-10.ilovegoodlife.xyz     ansible_user=root
+
+#shouldator.ilovegoodlife.xyz ansible_host=shouldator.ilovegoodlife.xyz     ansible_user=root
+#59.110.212.118_50002 ansible_host=59.110.212.118     ansible_user=root  ansible_ssh_port=50002
+#47.241.18.63     ansible_host=47.241.18.63     ansible_user=root
+#47.241.76.161    ansible_host=47.241.76.161    ansible_user=root
+#47.241.61.21     ansible_host=47.241.61.21     ansible_user=root
+#47.241.227.23    ansible_host=47.241.227.23    ansible_user=root
+#47.241.89.191    ansible_host=47.241.89.191    ansible_user=root
+#161.117.189.210  ansible_host=161.117.189.210  ansible_user=root
+#47.241.222.218   ansible_host=47.241.222.218   ansible_user=root
+#47.241.238.217   ansible_host=47.241.238.217   ansible_user=root
+#47.241.79.77     ansible_host=47.241.79.77     ansible_user=root
+#47.241.66.249    ansible_host=47.241.66.249    ansible_user=root
+
+
+#efaneous.ilovegoodlife.xyz     ansible_host=efaneous.ilovegoodlife.xyz    ansible_user=root
+#hexier.ilovegoodlife.xyz       ansible_host=hexier.ilovegoodlife.xyz      ansible_user=root
+#windatic.ilovegoodlife.xyz     ansible_host=windatic.ilovegoodlife.xyz     ansible_user=root
+#helption.ilovegoodlife.xyz     ansible_host=helption.ilovegoodlife.xyz     ansible_user=root
+#teamition.ilovegoodlife.xyz    ansible_host=teamition.ilovegoodlife.xyz     ansible_user=root
+#us-1.ilovegoodlife.xyz     ansible_host=us-1.ilovegoodlife.xyz      ansible_user=root
+#us-2.ilovegoodlife.xyz     ansible_host=us-2.ilovegoodlife.xyz      ansible_user=root
+#us-3.ilovegoodlife.xyz     ansible_host=us-3.ilovegoodlife.xyz      ansible_user=root
+#us-4.ilovegoodlife.xyz     ansible_host=us-4.ilovegoodlife.xyz      ansible_user=root
+#us-5.ilovegoodlife.xyz     ansible_host=us-5.ilovegoodlife.xyz      ansible_user=root
+#us-6.ilovegoodlife.xyz     ansible_host=us-6.ilovegoodlife.xyz      ansible_user=root
+#us-7.ilovegoodlife.xyz     ansible_host=us-7.ilovegoodlife.xyz      ansible_user=root
+#us-8.ilovegoodlife.xyz     ansible_host=us-8.ilovegoodlife.xyz      ansible_user=root
+#us-9.ilovegoodlife.xyz     ansible_host=us-9.ilovegoodlife.xyz      ansible_user=root
+#us-10.ilovegoodlife.xyz    ansible_host=us-10.ilovegoodlife.xyz     ansible_user=root
+#ieeltpne.ilovegoodlife.xyz     ansible_host=ieeltpne.ilovegoodlife.xyz     ansible_user=root
+#adly218.ilovegoodlife.xyz     ansible_host=adly218.ilovegoodlife.xyz     ansible_user=root
+#uk233.ilovegoodlife.xyz     ansible_host=uk233.ilovegoodlife.xyz     ansible_user=root
+#mxg188.ilovegoodlife.xyz     ansible_host=mxg188.ilovegoodlife.xyz     ansible_user=root
+#us138.ilovegoodlife.xyz     ansible_host=us138.ilovegoodlife.xyz     ansible_user=root
+#被删除 bx24.ilovegoogdlife.xyz     ansible_host=bx24.ilovegoodlife.xyz     ansible_user=root
+#hg4.ilovegoodlife.xyz     ansible_host=hg4.ilovegoodlife.xyz     ansible_user=root
+#被删除 rb245.ilovegoodlifexyz     ansible_host=rb245.ilovegoodlife.xyz     ansible_user=root
+#us110.ilovegoodlife.xyz     ansible_host=us110.ilovegoodlife.xyz     ansible_user=root
+#us133.ilovegoodlife.xyz     ansible_host=us133.ilovegoodlife.xyz     ansible_user=root
+#dg194.ilovegoodlife.xyz     ansible_host=dg194.ilovegoodlife.xyz     ansible_user=root
+#uk77.ilovegoodlife.xyz     ansible_host=uk77.ilovegoodlife.xyz     ansible_user=root
+#uk193.ilovegoodlife.xyz     ansible_host=uk193.ilovegoodlife.xyz     ansible_user=root
+#us39.ilovegoodlife.xyz     ansible_host=us39.ilovegoodlife.xyz     ansible_user=root 
+#suddenly.ilovegoodlife.xyz     ansible_host=suddenly.ilovegoodlife.xyz     ansible_user=root
+#camerpersonator.ilovegoodlife.xyz     ansible_host=camerpersonator.ilovegoodlife.xyz     ansible_user=root
+#decateamfy.ilovegoodlife.xyz     ansible_host=decateamfy.ilovegoodlife.xyz     ansible_user=root
+#tw-1.ilovegoodlife.xyz     ansible_host=tw-1.ilovegoodlife.xyz     ansible_user=root
+#tw-2.ilovegoodlife.xyz     ansible_host=tw-2.ilovegoodlife.xyz     ansible_user=root
+#tw115.ilovegoodlife.xyz     ansible_host=tw115.ilovegoodlife.xyz     ansible_user=root
+#mlxy120.ilovegoodlife.xyz     ansible_host=mlxy120.ilovegoodlife.xyz     ansible_user=root
+#tg166.ilovegoodlife.xyz     ansible_host=tg166.ilovegoodlife.xyz     ansible_user=root
+#yn197.ilovegoodlife.xyz     ansible_host=yn197.ilovegoodlife.xyz     ansible_user=root
+#electconferencemost.ilovegoodlife.xyz     ansible_host=electconferencemost.ilovegoodlife.xyz     ansible_user=root
+#无效v2ray love.ilovegoodlife.xyz                    ansible_host=love.ilovegoodlife.xyz                    ansible_user=root
+#ssh登录需要密码 pastics.ilovegoodlife.xyz                 ansible_host=pastics.ilovegoodlife.xyz                 ansible_user=root
+#yinni244.ilovegoodlife.xyz                   ansible_host=yinni244.ilovegoodlife.xyz                   ansible_user=root
+#ssh登录被远程主机关闭 raptship.ilovegoodlife.xyz                ansible_host=raptship.ilovegoodlife.xyz                ansible_user=root
+#fab.ilovegoodlife.xyz   				  ansible_host=fab.ilovegoodlife.xyz   				     ansible_user=root
+#ballfaction.ilovegoodlife.xyz  			  ansible_host=ballfaction.ilovegoodlife.xyz  			 ansible_user=root
