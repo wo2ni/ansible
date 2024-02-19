@@ -1,7 +1,0 @@
-#ALL VPS
-[Servier]
-128.1.57.84                      ansible_host=128.1.57.84             ansible_user=root
-128.1.57.42                      ansible_host=128.1.57.42             ansible_user=root
-128.1.57.4                      ansible_host=128.1.57.4             ansible_user=root
-128.1.57.108                      ansible_host=128.1.57.108             ansible_user=root
-128.1.57.23                      ansible_host=128.1.57.23             ansible_user=root
