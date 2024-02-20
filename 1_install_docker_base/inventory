@@ -1,3 +1,0 @@
-#ALL Server
-[Server]
-1.1.1.1                      ansible_host=1.1.1.1             ansible_user=root
