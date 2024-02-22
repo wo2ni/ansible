@@ -1,0 +1,43 @@
+#Debian install Linux Xanmod Kernel
+---
+- name: 安装 Linux Xanmod Kernel (Debian)
+  hosts: all
+  become: yes
+  tasks:
+    - name: 添加 Xanmod APT gpg 公钥
+      apt_key:
+        url: https://dl.xanmod.org/gpg.key
+        state: present
+
+    - name: 添加 Xanmod APT 仓库
+      apt_repository:
+        repo: "deb http://deb.xanmod.org releases main"
+        state: present
+
+    - name: 更新 APT 缓存
+      apt:
+        update_cache: yes
+    - name: 复制xanmod 内核检测脚本
+      copy:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+        owner: "{{ item.owner }}"
+        group: "{{ item.group }}"
+        mode: "{{ item.mode }}"
+      with_items:
+        - { src: "xanmod-install.sh", dest: "/tmp", owner: "root", group: "root", mode: "0700" }
+        - { src: "xanmod-sysctl.conf", dest: "/tmp", owner: "root", group: "root", mode: "0700" }
+
+    - name: 安装 Xanmod kernel
+      shell: |
+        /tmp/xanmod-install.sh
+
+    - name: 调整 Xanmod kernel 性能参数
+      shell: |
+        cat /tmp/xanmod-sysctl.conf >/etc/sysctl.conf
+
+    - name: 重启服务器
+      reboot:
+        reboot_timeout: 300
+        pre_reboot_delay: 0
+        post_reboot_delay: 30

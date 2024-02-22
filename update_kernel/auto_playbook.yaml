@@ -1,0 +1,221 @@
+# Ansible playbook (各种Linux发行版,初始化剧本)
+
+---
+- name: 各种Linux发行版初始化剧本(Debian,Ubuntu,Centos)
+  hosts: all
+  tasks:
+#Debian
+    - name: 建立软件包缓存,并安装 vim (Debian)
+      apt:
+        update_cache: yes
+        name:
+          - vim
+          - jq
+          - bash-completion
+          - iproute2
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg
+          - lsb-release
+          - wget
+          - htop
+        state: present
+      when: ansible_distribution == 'Debian'
+
+    - name: 配置 PS1 提示符 以及 vim 配置 (Debian)
+      copy:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+        owner: "{{ item.owner }}"
+        group: "{{ item.group }}"
+        mode: "{{ item.mode }}"
+      with_items:
+        - { src: "bashrc", dest: "/root/.bashrc", owner: "root", group: "root", mode: "0644" }
+        - { src: "vimrc", dest: "/root/.vimrc", owner: "root", group: "root", mode: "0644" }
+      when: ansible_distribution == 'Debian'
+
+    - name: 添加Docker GPG 密钥 (Debian)
+      apt_key:
+        url: https://download.docker.com/linux/debian/gpg
+        state: present
+      when: ansible_distribution == 'Debian'
+
+    - name: 添加Docker 软件仓库 (Debian)
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/debian {{ ansible_lsb.codename }} stable
+        state: present
+      when: ansible_distribution == 'Debian'
+
+    - name: 安装Docker引擎以及docker-compose (Debian)
+      apt:
+        name:
+          - docker-ce
+          - docker-compose
+        state: present
+      when: ansible_distribution == 'Debian'
+
+    - name: 重新载入Systemd服务 (Debian)
+      systemd:
+        daemon_reload: yes
+      when: ansible_distribution == 'Debian'
+
+    - name: 启动并开机自启docker socket (Debian)
+      systemd:
+        name: docker.socket
+        enabled: yes
+        state: started
+      when: ansible_distribution == 'Debian'
+#Ubuntu
+    - name: 建立软件包缓存,并安装 vim (Ubuntu)
+      apt:
+        update_cache: yes
+        name:
+          - vim
+          - jq
+          - bash-completion
+          - gnupg
+          - iproute2
+          - apt-transport-https
+          - ca-certificates
+          - curl
+          - gnupg
+          - lsb-release
+          - wget
+          - htop
+        state: present
+      when: ansible_distribution == 'Ubuntu'
+
+    - name: 配置 PS1 提示符 以及 vim 配置 (Ubuntu)
+      copy:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+        owner: "{{ item.owner }}"
+        group: "{{ item.group }}"
+        mode: "{{ item.mode }}"
+      with_items:
+        - { src: "bashrc", dest: "/root/.bashrc", owner: "root", group: "root", mode: "0644" }
+        - { src: "vimrc", dest: "/root/.vimrc", owner: "root", group: "root", mode: "0644" }
+      when: ansible_distribution == 'Ubuntu'
+
+    - name: 添加Docker GPG 密钥 (Ubuntu)
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+      when: ansible_distribution == 'Ubuntu'
+
+    - name: 添加Docker 软件仓库 (Ubuntu)
+      apt_repository:
+        repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ ansible_lsb.codename }} stable
+        state: present
+      when: ansible_distribution == 'Ubuntu'
+
+    - name: 安装 Docker引擎以及docker-compose (Ubuntu)
+      apt:
+        name: 
+          - docker-ce
+          - docker-compose
+        state: present
+      when: ansible_distribution == 'Ubuntu'
+
+    - name: 重新载入Systemd服务 (Ubuntu)
+      systemd:
+        daemon_reload: yes
+      when: ansible_distribution == 'Ubuntu'
+
+    - name: 启动并开机自启docker socket (Ubuntu)
+      systemd:
+        name: docker.socket
+        enabled: yes
+        state: started
+      when: ansible_distribution == 'Ubuntu'
+# Centos 
+    - name: 建立 Centos Base 软件包缓存 (Centos)
+      yum:
+        name: ''
+        state: present
+      when: ansible_distribution == 'CentOS'
+
+    - name: 安装基本生产力软件包 (CentOS)
+      yum:
+        name:
+          - epel-release
+          - jq
+          - bash-completion
+          - vim
+          - iproute
+          - curl
+          - wget
+        state: present
+      when: ansible_distribution == 'CentOS'
+
+    - name: 建立 EPEL源 软件包缓存 (Centos)
+      yum:
+        name: ''
+        state: present
+      when: ansible_distribution == 'CentOS'
+
+    - name: 安装 EPEL源 软件包 (CentOS)
+      yum:
+        name:
+          - htop
+          - yum-utils
+          - device-mapper-persistent-data
+          - lvm2
+        state: present
+      when: ansible_distribution == 'CentOS'
+
+    - name: 配置 PS1 提示符 以及 vim 配置 (Centos)
+      copy:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+        owner: "{{ item.owner }}"
+        group: "{{ item.group }}"
+        mode: "{{ item.mode }}"
+      with_items:
+        - { src: "bashrc", dest: "/root/.bashrc", owner: "root", group: "root", mode: "0644" }
+        - { src: "vimrc", dest: "/root/.vimrc", owner: "root", group: "root", mode: "0644" }
+      when: ansible_distribution == 'CentOS'
+
+    - name: 添加 Docker CE 仓库 (Centos)
+      yum_repository:
+        name: docker-ce
+        description: Docker CE repo
+        baseurl: https://download.docker.com/linux/centos/7/$basearch/stable
+        gpgcheck: yes
+        gpgkey: https://download.docker.com/linux/centos/gpg
+        enabled: yes
+      when: ansible_distribution == 'CentOS'
+
+    - name: 建立Docker yum makecache (Centos)
+      yum:
+        name: ''
+        state: present
+      when: ansible_distribution == 'CentOS'
+
+    - name: 安装 Docker引擎以及docker-compose (Centos)
+      yum:
+        name:
+          - docker-ce
+          - docker-compose
+        state: present
+      when: ansible_distribution == 'CentOS'
+
+    - name: 重新载入Systemd服务
+      systemd:
+        daemon_reload: yes
+      when: ansible_distribution == 'CentOS'
+
+    - name: 启动 Docker 服务并开机自启 (Centos)
+      systemd:
+        name: docker.service
+        state: started
+        enabled: yes
+      when: ansible_distribution == 'CentOS'
+
+    - name: 启动 Docker Socst并开机自启 (Centos)
+      systemd:
+        name: docker.socket
+        state: started
+        enabled: yes
+      when: ansible_distribution == 'CentOS'
