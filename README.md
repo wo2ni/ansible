@@ -29,3 +29,9 @@ cd install_docker_base/
 cd update_kernel/
 ansible-playbook -i inventory auto_playbook.yaml
 ```
+
+### node-exporter(node-exporter数据源)
+```bash
+cd node-exporter/
+ansible-playbook -i inventory playbook.yaml
+```
