@@ -1,0 +1,22 @@
+#node-exporter 9100:9100
+
+version: '3.3'
+services:
+  node_exporter:
+    #image: prom/node-exporter:v1.5.0
+    image: prom/node-exporter
+    container_name: node-exporter
+    restart: always
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+      - ./node_exporter.crt:/etc/node_exporter.crt
+      - ./node_exporter.key:/etc/node_exporter.key
+      - ./config.yaml:/etc/config.yaml
+    command: 
+      - '--web.config.file=/etc/config.yaml'
+      - '--path.procfs=/host/proc' 
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.ignored-mount-points=^/(sys|proc|dev|host|etc|rootfs/var/lib/docker)($$|/)'
+    network_mode: host

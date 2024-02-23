@@ -1,0 +1,64 @@
+#各种Linux 发行版部署node-exporter (Docker版)
+
+---
+- name: 配置node-exporter数据源
+  hosts: all
+  become: true
+  tasks:
+    - name: 建立/opt/node-exporter容器目录
+      file:
+        path: "{{ item }}"
+        state: directory
+      loop:
+        - /opt/node-exporter
+
+    - name: 复制node-exporter各种配置文件
+      template:
+        src: "{{ item.src }}"
+        dest: "{{ item.dest }}"
+        owner: "{{ item.owner }}"
+        group: "{{ item.group }}"
+        mode: "{{ item.mode }}"
+      with_items:
+        - { src: "docker-compose.yaml", dest: "/opt/node-exporter/docker-compose.yaml", owner: "root", group: "root", mode: "0644" }
+        - { src: "config.yaml", dest: "/opt/node-exporter/config.yaml", owner: "root", group: "root", mode: "0644" }
+        - { src: "node_exporter.crt", dest: "/opt/node-exporter/node_exporter.crt", owner: "root", group: "root", mode: "0644" }
+        - { src: "node_exporter.key", dest: "/opt/node-exporter/node_exporter.key", owner: "root", group: "root", mode: "0644" }
+
+    - name: 启动 node-exporter Docker Compose
+      command: docker-compose up -d
+      args:
+        chdir: /opt/node-exporter
+
+    - name: 检测系统中是否使用ufw防火墙工具. 
+      command: which ufw
+      register: ufw_exists
+      ignore_errors: true
+
+    - name: 检测系统中是否使用firewall-cmd 防火墙管理工具.
+      command: which firewall-cmd
+      register: firewall_cmd_exists
+      ignore_errors: true
+
+    - name: 使用ufw方法放行 9100端口.
+      ufw:
+        rule: allow
+        port: '9100'
+        proto: tcp
+      when: ufw_exists.rc == 0
+
+    - name: 使用firewall-cmd方法放行 9100端口.
+      firewalld:
+        port: 9100/tcp
+        permanent: yes
+        state: enabled
+        immediate: yes
+      when: firewall_cmd_exists.rc == 0
+
+    - name: 等待 node-exporter 容器启动完毕
+      wait_for:
+        host: localhost
+        port: "{{ item }}"
+        timeout: 60
+      loop:
+        - 9100
