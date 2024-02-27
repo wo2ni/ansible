@@ -35,3 +35,9 @@ ansible-playbook -i inventory auto_playbook.yaml
 cd node-exporter/
 ansible-playbook -i inventory playbook.yaml
 ```
+
+### ping (检测主机是否存活)
+```bash
+cd ping
+ansible-playbook -i inventory playbook.yaml
+```
