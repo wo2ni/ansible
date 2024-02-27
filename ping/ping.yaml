@@ -1,0 +1,10 @@
+# Ansible playbook (查看所有主机是否存活)
+
+---
+- name: PING;)
+  hosts: all           
+  gather_facts: false  
+  tasks:
+
+    - name: 检测主机是否存活^-^
+      ping:
